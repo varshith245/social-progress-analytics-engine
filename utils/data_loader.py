@@ -498,6 +498,22 @@ def get_country_profile(
             prev_row.iloc[0]["Life Evaluation"]
         )
 
+    # Historical best and worst ranks
+    country_all = df[df["Country name"] == country].dropna(subset=["Rank"])
+    if not country_all.empty:
+        best_idx = country_all["Rank"].idxmin()
+        best_rank = int(country_all.loc[best_idx, "Rank"])
+        best_year = int(country_all.loc[best_idx, "Year"])
+
+        worst_idx = country_all["Rank"].idxmax()
+        worst_rank = int(country_all.loc[worst_idx, "Rank"])
+        worst_year = int(country_all.loc[worst_idx, "Year"])
+    else:
+        best_rank = int(row.get("Rank", 0))
+        best_year = int(year)
+        worst_rank = int(row.get("Rank", 0))
+        worst_year = int(year)
+
     return {
         "country": country,
         "year": int(year),
@@ -507,4 +523,8 @@ def get_country_profile(
         "lower_whisker": float(row.get("Lower whisker", 0.0)),
         "factors": factors,
         "yoy_change": yoy,
+        "best_rank": best_rank,
+        "best_year": best_year,
+        "worst_rank": worst_rank,
+        "worst_year": worst_year,
     }

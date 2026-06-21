@@ -57,25 +57,38 @@ The Social Progress Analytics Engine provides comprehensive analysis of global h
 
 ```
 social-progress-analytics/
-├── app.py                          # Main entry point & Home page
-├── requirements.txt                # Python dependencies
-├── README.md                       # This file
+├── README.md
+├── .gitignore
+├── requirements.txt
+├── app.py
+├── fix_keys.py
 ├── data/
-│   └── WHR26_Data_Figure_2.1.xlsx  # World Happiness Report dataset
+│   └── WHR26_Data_Figure_2.1.xlsx
+├── pages/
+│   ├── 1_Home.py
+│   ├── 2_Country_Rankings.py
+│   ├── 3_Country_Comparison.py
+│   ├── 4_Factor_Analysis.py
+│   ├── 5_Time_Trends.py
+│   ├── 6_Country_Profile.py
+│   └── 7_Data_Table.py
 ├── utils/
 │   ├── __init__.py
-│   ├── config.py                   # Configuration, colors, CSS, helpers
-│   ├── data_loader.py              # Data loading, cleaning, analytics
-│   └── charts.py                   # Plotly chart generation functions
-├── pages/
-│   ├── 1_🏠_Home.py               # Overview & KPIs
-│   ├── 2_🏆_Country_Rankings.py    # Ranking explorer
-│   ├── 3_🔄_Country_Comparison.py  # Multi-country comparison
-│   ├── 4_📊_Factor_Analysis.py     # Factor contribution analysis
-│   ├── 5_📈_Time_Trends.py        # Temporal trend analysis
-│   ├── 6_🌍_Country_Profile.py    # Single country deep dive
-│   └── 7_📋_Data_Table.py         # Interactive data browser
-└── assets/                         # Static assets (images, icons)
+│   ├── charts.py
+│   ├── config.py
+│   └── data_loader.py
+├── notebook/
+│   └── Social_Progress_Analysis.ipynb
+├── screenshots/
+│   ├── home.png
+│   ├── country_rankings.png
+│   ├── country_comparison.png
+│   ├── factor_analysis.png
+│   ├── time_trends.png
+│   ├── country_profile.png
+│   └── data_table.png
+└── docs/
+    └── Project_Report.pdf
 ```
 
 ## 📊 Dashboard Pages

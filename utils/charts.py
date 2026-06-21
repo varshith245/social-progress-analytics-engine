@@ -17,7 +17,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-from utils.config import COLORS, FACTOR_COLORS, FACTOR_COLUMNS
+from utils.config import COLORS, FACTOR_COLORS, FACTOR_COLUMNS, FACTOR_COLUMNS_REVERSE
 
 # ---------------------------------------------------------------------------
 # Shared layout helpers
@@ -307,6 +307,7 @@ def create_factor_stacked_bar(
         return _empty_figure("No factor data available", height)
 
     data = df.copy()
+    data = data.rename(columns=FACTOR_COLUMNS_REVERSE)
     country_col = _find_col(data, ["Country name", "Country"])
     year_col = _find_col(data, ["year"])
     score_col = _find_col(data, ["Life Ladder", "Ladder score", "Life Evaluation"])
@@ -326,6 +327,8 @@ def create_factor_stacked_bar(
         title = f"Factor Contributions ({year_val})"
     else:
         # List of countries → bars = years
+        if isinstance(countries_or_year, str):
+            countries_or_year = [countries_or_year]
         data = data[data[country_col].isin(countries_or_year)]
         if year_col:
             data = data.sort_values(year_col)
@@ -392,6 +395,7 @@ def create_radar_chart(
         return _empty_figure("No data for radar chart", height)
 
     data = df_row_or_rows.head(3).copy()
+    data = data.rename(columns=FACTOR_COLUMNS_REVERSE)
     country_col = _find_col(data, ["Country name", "Country"])
     available_factors = [f for f in FACTOR_COLUMNS if f in data.columns]
 
@@ -681,6 +685,9 @@ def create_factor_comparison_grouped_bar(
     """
     if not df_list or not country_names:
         return _empty_figure("No comparison data available", height)
+
+    # Rename factor columns in df_list to short names
+    df_list = [cdf.rename(columns=FACTOR_COLUMNS_REVERSE) if cdf is not None else None for cdf in df_list]
 
     # Union of available factor columns across all DataFrames
     all_factors = []
